@@ -11,7 +11,7 @@ public interface UserService {
 
     User obtenerPorId(Long id);
 
-    User crearUsuario(User user);
+    User crearUsuario(User user, String roleName);
 
     void deshabilitarUsuario(Long id);
 

@@ -1,10 +1,13 @@
 package com.proyecto1.gestionCursos.controller;
 
 import com.proyecto1.gestionCursos.entities.Curso;
+import com.proyecto1.gestionCursos.entities.Rol;
+import com.proyecto1.gestionCursos.entities.User;
 import com.proyecto1.gestionCursos.reports.CursoExporterExcel;
 import com.proyecto1.gestionCursos.reports.CursoExporterPDF;
 import com.proyecto1.gestionCursos.repository.CursoRepository;
 import com.proyecto1.gestionCursos.services.CursoService;
+import com.proyecto1.gestionCursos.services.UserService;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -19,9 +22,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Controller
 public class cursoController {
@@ -157,5 +158,6 @@ public class cursoController {
         CursoExporterExcel exporterExcel = new CursoExporterExcel(cursos);
         exporterExcel.export(response);
     }
+
 
 }

@@ -153,6 +153,10 @@
         <div class="button" align="center">
             <button type="submit">Login</button>
         </div>
+        <div class="CrearUsuario" align="center">
+            <a th:href="@{/crear-usuario}" class="btn btn-primary btn-sm ml-2">Crear Usuario</a>
+        </div>
+
         <div align="center" class="error" th:if="${param.error}">
             <h3>Username o password inválidos</h3>
         </div>
