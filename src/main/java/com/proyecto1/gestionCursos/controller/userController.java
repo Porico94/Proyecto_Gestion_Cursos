@@ -3,7 +3,6 @@ package com.proyecto1.gestionCursos.controller;
 import com.proyecto1.gestionCursos.entities.Rol;
 import com.proyecto1.gestionCursos.entities.User;
 import com.proyecto1.gestionCursos.repository.RolRepository;
-import com.proyecto1.gestionCursos.repository.UserRepository;
 import com.proyecto1.gestionCursos.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -29,13 +28,13 @@ public class userController {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    @GetMapping("/crear-usuario")
+    @GetMapping("/usuario/nuevo")
     public String mostrarFormularioCreacion(Model model) {
         model.addAttribute("user", new User());
         return "usuario_form"; // Muestra el formulario de creación de usuario
     }
 
-    @PostMapping("/crear-usuario")
+    @PostMapping("/usuario/save")
     public String crearUsuario(@ModelAttribute("user") User user, RedirectAttributes redirectAttributes) {
 
         try{
@@ -56,12 +55,12 @@ public class userController {
             } else {
             // Manejar la situación en la que el rol CREATOR no existe
             redirectAttributes.addFlashAttribute("error", "No se pudo encontrar el rol CREATOR");
-            return "redirect:/crear-usuario";
+            return "redirect:/usuario/nuevo";
             }
         }catch (Exception e){
             // Manejar cualquier excepción que pueda ocurrir durante la creación del usuario
             redirectAttributes.addFlashAttribute("error", "Error al crear el usuario: " + e.getMessage());
-            return "redirect:/crear-usuario";
+            return "redirect:/usuario/nuevo";
         }
     }
 }

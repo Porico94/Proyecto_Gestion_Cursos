@@ -8,6 +8,7 @@ import org.springframework.security.authentication.dao.DaoAuthenticationProvider
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -44,6 +45,7 @@ public class WebSecurityConfig {
     protected SecurityFilterChain filterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity.authorizeHttpRequests(
                         auth -> auth
+                                .requestMatchers("/usuario/**").permitAll()
                                 .requestMatchers("/cursos").hasAnyAuthority("USER","CREATOR","EDITOR","ADMIN")
                                 .requestMatchers("/cursos/nuevo").hasAnyAuthority("ADMIN","CREATOR")
                                 .requestMatchers("/cursos/*").hasAnyAuthority("ADMIN","EDITOR")
@@ -53,7 +55,7 @@ public class WebSecurityConfig {
                 .formLogin(form -> form
                         .loginPage("/login")
                         .permitAll())
-                .logout(l->l.permitAll())
+                .logout(LogoutConfigurer::permitAll)
                 .exceptionHandling(e -> e.accessDeniedPage("/403"));
         return httpSecurity.build();
     }
